@@ -1,0 +1,16 @@
+<ul>
+  {{#each burgers}}
+    {{#unless devoured}}
+    {{/unless}}
+  {{/each}}
+  <button >
+		{{#if devoured=false}}Devour!
+	</button>
+</ul>
+
+<form class="add-burger">
+    <div class="form-group">
+    <input type="text" id="burgerForm" name="burger">
+  </div>
+  <button type="submit">ADD A BURGER</button>
+</form>
