@@ -1,5 +1,17 @@
 var connection = require("./connection.js");
 
+function objToSql(ob) {
+	// column1=value, column2=value2,...
+	var arr = [];
+
+	for (var key in ob) {
+		if (ob.hasOwnProperty(key)) {
+			return key + '=' + ob[key];
+		}
+	}
+
+};
+
 var orm = {
     all: function(tableInput, cb) {
       var queryString = "SELECT * FROM " + tableInput + ";";
@@ -13,12 +25,12 @@ var orm = {
     create: function(table, cols, vals, cb) {
       var queryString = "INSERT INTO " + table;
   
-      queryString += " (";
-      queryString += cols.toString();
-      queryString += ") ";
-      queryString += "VALUES (";
-      queryString += printQuestionMarks(vals.length);
-      queryString += ") ";
+      queryString += ' (';
+      queryString += cols;
+      queryString += ') ';
+      queryString += 'VALUES (';
+      queryString += '?';
+      queryString += ') ';
   
       console.log(queryString);
   
@@ -48,31 +60,6 @@ var orm = {
         cb(result);
       });
     },
-    delete: function(table, condition, cb) {
-      var queryString = "DELETE FROM " + table;
-      queryString += " WHERE ";
-      queryString += condition;
-  
-      connection.query(queryString, function(err, result) {
-        if (err) {
-          throw err;
-        }
-  
-        cb(result);
-      });
-    }
   };
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = orm;

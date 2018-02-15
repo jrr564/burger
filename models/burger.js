@@ -7,7 +7,7 @@ var burger = {
         });
     },
     create: function(cols, vals, cb) {
-        orm.create("burgers", col, vals, function(res) {
+        orm.create("burgers", cols, vals, function(res) {
             cb(res);
         });
     },
@@ -16,12 +16,8 @@ var burger = {
             cb(res);
         });
     },
-    delete: function(condition, cb) {
-        orm.delete("burgers", condition, function(res){
-            cb(res);
-        });
-    }
 
 }
 
 module.exports = burger;
+

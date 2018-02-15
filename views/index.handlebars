@@ -1,16 +1,42 @@
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
-    {{/unless}}
-  {{/each}}
-  <button >
-		{{#if devoured=false}}Devour!
-	</button>
-</ul>
+<div class="container">
+  
+  <h1>Eat-Da-Burger!</h1>
 
-<form class="add-burger">
-    <div class="form-group">
-    <input type="text" id="burgerForm" name="burger">
+  <div class="row">
+
+    <div class="col-sm-6">
+      <h2>Burgers to Eat!</h2>
+      {{#each burgers}}
+        {{#unless this.devoured}}
+          <form id="update" action="/burgers/devour/{{this.id}}?_method=PUT" method="POST">
+            <input type="hidden" name="devoured" value="true">
+            <button class="btn" type="submit">Devour it!</button>
+          </form>
+          <div class="well">
+            {{this.burger_name}}
+          </div>
+        {{/unless}}
+      {{/each}}
+    </div>
+
+    <div class="col-sm-6">
+      <h2>Burgers Devoured!</h2>
+      {{#each burgers}}
+        {{#if this.devoured}}
+          <div class="well devoured">
+            {{this.burger_name}}
+          </div>
+        {{/if}}
+      {{/each}}
+      </div>
+
   </div>
-  <button type="submit">ADD A BURGER</button>
-</form>
+
+  <h2>Enter a burger you want to eat then click "Submit"</h2>
+  
+  <form id="add" action="/burgers/add" method="POST">
+    <textarea name="burger_name"></textarea>
+    <button class="btn btn-warning" type="submit">Submit</button>
+  </form>
+
+</div>
